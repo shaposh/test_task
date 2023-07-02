@@ -1,0 +1,7 @@
+pandas
+pyTelegramBotAPI==4.10.0
+PyYAML==6.0
+# SQLAlchemy==1.4.39
+openpyxl
+psycopg2
+xlsxwriter
