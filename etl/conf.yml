@@ -1,5 +1,5 @@
 XLS_FILENAME: 'data/ETL.xlsx'
-#CONNECTION_STRING: 'host=db, port=5432, dbname=etl user=postgres password=postgres'
-CONNECTION_STRING: 'host=localhost, port=5432, dbname=etl user=postgres password=54749014'
+CONNECTION_STRING: 'host=db, port=5432, dbname=etl user=postgres password=postgres'
+#CONNECTION_STRING: 'host=localhost, port=5432, dbname=etl user=postgres password=54749014'
 BOT_TOKEN: '6305159129:AAHIihAeYQSCeo3zYVHm_mDoARxfrHbfMSA'
 CLEAR_TABLE_BEFORE_IMPORT: True
