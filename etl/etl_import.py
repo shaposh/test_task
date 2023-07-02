@@ -2,6 +2,7 @@ import pandas
 import psycopg2
 import time
 from yaml import safe_load
+import openpyxl
 
 def get_config(path):
     with open(path, 'r') as stream:

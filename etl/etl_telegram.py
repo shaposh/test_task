@@ -1,5 +1,6 @@
 import psycopg2
 import telebot
+import openpyxl
 import pandas as pd
 from yaml import safe_load
 
@@ -24,6 +25,8 @@ def get_data(filename, param):
 
     columns = ('Регион', 'МО', 'GTIN', 'Серия', 'Остаток', 'Просрочка дни')
     df = pd.DataFrame(records, columns=columns)
+    if len(df)==0:
+        return -1
 
     writer = pd.ExcelWriter(filename)
     df.to_excel(writer, sheet_name='Sheet 1', index=False)
@@ -32,7 +35,7 @@ def get_data(filename, param):
         col_idx = df.columns.get_loc(column)
         writer.sheets['Sheet 1'].set_column(col_idx, col_idx, column_width)
     writer.close()
-
+    return 0
 
 @bot.message_handler(commands=['report'])
 def get_text_messages(message):
@@ -41,13 +44,15 @@ def get_text_messages(message):
 
     file_name = 'reports/report_' + param + '.xlsx'
     try:
-        get_data(file_name, param)
+       status = get_data(file_name, param)
     except:
         file_name = 'reports/report.xlsx'
-        get_data(file_name, param)
-
-    with open(file_name, 'rb') as f:
-        bot.send_document(message.chat.id, f)
+        status = get_data(file_name, param)
+    if status == 0:
+        with open(file_name, 'rb') as f:
+            bot.send_document(message.chat.id, f)
+    else:
+        bot.send_message(message.chat.id, 'Данные по Вашему запросу отсутствуют')
 
 @bot.message_handler(content_types='text')
 def message_reply(message):
